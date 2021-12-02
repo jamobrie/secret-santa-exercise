@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SecretsantaApplication {
+public class SecretSantaApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SecretsantaApplication.class, args);
+		SpringApplication.run(SecretSantaApplication.class, args);
 	}
 
 }
