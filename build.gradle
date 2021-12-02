@@ -1,3 +1,6 @@
+import org.gradle.nativeplatform.platform.internal.DefaultNativePlatform
+
+
 plugins {
 	id 'org.springframework.boot' version '2.6.1'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
@@ -7,6 +10,20 @@ plugins {
 group = 'com.secretsanta'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
+
+task generateFromOpenapi(type:Exec) {
+	workingDir 'openapiGeneration'
+	OperatingSystem os = DefaultNativePlatform.currentOperatingSystem;
+
+	if (os.isWindows()) {
+		print 'Using Windows generation'
+		commandLine 'cmd', '/C', 'openapiGenerate.bat'
+	}
+	else {
+		print 'Using *nix generation'
+		commandLine 'sh', '-c', './openapiGenerate.sh'
+	}
+}
 
 configurations {
 	compileOnly {
@@ -18,11 +35,17 @@ repositories {
 	mavenCentral()
 }
 
+compileJava.dependsOn 'generateFromOpenapi'
+
 dependencies {
+	implementation group: 'javax.validation', name: 'validation-api', version: '2.0.1.Final'
 	implementation 'org.springframework.boot:spring-boot-starter'
+	implementation group: 'org.openapitools', name: 'openapi-generator', version: '4.3.1'
+	implementation group: 'org.openapitools', name: 'jackson-databind-nullable', version: '0.2.1'
 	implementation 'org.springframework.boot:spring-boot-starter-data-rest'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	compileOnly 'org.projectlombok:lombok'
+	implementation group: 'io.swagger', name: 'swagger-annotations', version: '1.6.3'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }

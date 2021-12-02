@@ -1,0 +1,18 @@
+{
+  "useRuntimeException": true,
+  "dateLibrary": "java8",
+  "booleanGetterPrefix": "is",
+  "serializationLibrary": "jackson",
+  "generateAliasAsModel": true,
+  "sourceFolder": "../src/main/java",
+  "apiPackage": "com.secretsanta.api.v1",
+  "modelPackage": "com.secretsanta.model.v1",
+  "basePackage": "com.secretsanta.v1",
+  "interfaceOnly": true,
+  "skipDefaultInterface": true,
+  "useOptional": true,
+  "apiDocs": false,
+  "modelDocs": false,
+  "apiTests": false,
+  "modelTests": false
+}
