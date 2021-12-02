@@ -5,7 +5,7 @@
  */
 package com.secretsanta.api.v1;
 
-import com.secretsanta.model.v1.Teammate;
+import com.secretsanta.model.v1.Teammates;
 import io.swagger.annotations.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -20,7 +20,7 @@ import javax.validation.constraints.*;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2021-12-02T22:10:35.258Z[Europe/London]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2021-12-02T22:37:27.421Z[Europe/London]")
 @Validated
 @Api(value = "secretsanta", description = "the secretsanta API")
 public interface SecretsantaApi {
@@ -28,20 +28,20 @@ public interface SecretsantaApi {
     /**
      * GET /secretsanta/getAllSecretSanta/{year} : get all secret santas in a given year, assuming that secretsantas have not been selected for that year
      *
-     * @param year the year of the secret santa (required)
+     * @param year the year of everyone&#39;s secret santa (required)
      * @return teammates who were selected as secretsantas for a year (status code 200)
      *         or unexpected error (status code 200)
      */
-    @ApiOperation(value = "get all secret santas in a given year, assuming that secretsantas have not been selected for that year", nickname = "secretsantaGetAllSecretSantaYearGet", notes = "", response = Teammate.class, tags={ "teammate", })
+    @ApiOperation(value = "get all secret santas in a given year, assuming that secretsantas have not been selected for that year", nickname = "secretsantaGetAllSecretSantaYearGet", notes = "", response = Teammates.class, tags={ "teammate", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "teammates who were selected as secretsantas for a year", response = Teammate.class),
+        @ApiResponse(code = 200, message = "teammates who were selected as secretsantas for a year", response = Teammates.class),
         @ApiResponse(code = 200, message = "unexpected error") })
     @RequestMapping(
         method = RequestMethod.GET,
         value = "/secretsanta/getAllSecretSanta/{year}",
         produces = { "application/json" }
     )
-    ResponseEntity<Teammate> secretsantaGetAllSecretSantaYearGet(@ApiParam(value = "the year of the secret santa", required = true) @PathVariable("year") String year);
+    ResponseEntity<Teammates> secretsantaGetAllSecretSantaYearGet(@ApiParam(value = "the year of everyone's secret santa", required = true) @PathVariable("year") Integer year);
 
 
     /**
@@ -50,15 +50,15 @@ public interface SecretsantaApi {
      * @return teammates who were selected as secretsantas for a year (status code 200)
      *         or unexpected error (status code 200)
      */
-    @ApiOperation(value = "Create new teammate and persist data to secretsanta table in postgres", nickname = "secretsantaRegisterTeammatePost", notes = "", response = Teammate.class, tags={  })
+    @ApiOperation(value = "Create new teammate and persist data to secretsanta table in postgres", nickname = "secretsantaRegisterTeammatePost", notes = "", response = Teammates.class, tags={  })
     @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "teammates who were selected as secretsantas for a year", response = Teammate.class),
+        @ApiResponse(code = 200, message = "teammates who were selected as secretsantas for a year", response = Teammates.class),
         @ApiResponse(code = 200, message = "unexpected error") })
     @RequestMapping(
         method = RequestMethod.POST,
         value = "/secretsanta/registerTeammate",
         produces = { "application/json" }
     )
-    ResponseEntity<Teammate> secretsantaRegisterTeammatePost();
+    ResponseEntity<Teammates> secretsantaRegisterTeammatePost();
 
 }

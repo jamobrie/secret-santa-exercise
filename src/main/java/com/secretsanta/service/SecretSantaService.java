@@ -1,6 +1,7 @@
 package com.secretsanta.service;
 
 import com.secretsanta.model.v1.Teammate;
+import com.secretsanta.model.v1.Teammates;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -9,7 +10,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class SecretSantaService {
-    public List<Teammate> getAllSecretSantasInGivenYear(Integer year) {
+    public Teammates getAllSecretSantasInGivenYear(Integer year) {
         Teammate james = new Teammate();
         james.setFirstName("James");
         james.setSecondName("O'Brien");
@@ -26,6 +27,6 @@ public class SecretSantaService {
         teammateList.add(james);
         teammateList.add(tom);
 
-        return teammateList.stream().filter(teammate -> teammate.getYearOfSecretSanta().equals(year)).collect(Collectors.toList());
+        return (Teammates) teammateList.stream().filter(teammate -> teammate.getYearOfSecretSanta().equals(year)).collect(Collectors.toList());
     }
 }
