@@ -1,4 +1,4 @@
-package model;
+package com.secretsanta.secretsanta.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
