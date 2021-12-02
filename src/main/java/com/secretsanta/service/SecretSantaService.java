@@ -27,6 +27,10 @@ public class SecretSantaService {
         teammateList.add(james);
         teammateList.add(tom);
 
-        return (Teammates) teammateList.stream().filter(teammate -> teammate.getYearOfSecretSanta().equals(year)).collect(Collectors.toList());
+        List<Teammate> teammateList1 = teammateList.stream().filter(teammate -> teammate.getYearOfSecretSanta().equals(year)).collect(Collectors.toList());
+
+        Teammates teammates = teammateList1.stream().collect(Collectors.toCollection(Teammates::new));
+
+        return (teammates);
     }
 }

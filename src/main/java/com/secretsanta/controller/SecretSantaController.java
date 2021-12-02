@@ -11,18 +11,17 @@ import org.springframework.web.bind.annotation.RestController;
 @AllArgsConstructor
 public class SecretSantaController implements SecretsantaApi {
 
-
     private final SecretSantaService secretSantaService;
 
     @Override
-    public ResponseEntity<Teammates> secretsantaGetAllSecretSantaYearGet(Integer year) {
+    public ResponseEntity<Teammates> getAllSecretSanta(Integer year) {
         Teammates teammateList = secretSantaService.getAllSecretSantasInGivenYear(year);
-
         return ResponseEntity.ok(teammateList);
     }
 
     @Override
-    public ResponseEntity<Teammates> secretsantaRegisterTeammatePost() {
+    public ResponseEntity<Teammates> registerTeammate() {
         return null;
     }
+
 }

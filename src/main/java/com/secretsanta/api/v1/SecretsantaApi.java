@@ -20,7 +20,7 @@ import javax.validation.constraints.*;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2021-12-02T22:37:27.421Z[Europe/London]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2021-12-02T22:53:45.957Z[Europe/London]")
 @Validated
 @Api(value = "secretsanta", description = "the secretsanta API")
 public interface SecretsantaApi {
@@ -32,7 +32,7 @@ public interface SecretsantaApi {
      * @return teammates who were selected as secretsantas for a year (status code 200)
      *         or unexpected error (status code 200)
      */
-    @ApiOperation(value = "get all secret santas in a given year, assuming that secretsantas have not been selected for that year", nickname = "secretsantaGetAllSecretSantaYearGet", notes = "", response = Teammates.class, tags={ "teammate", })
+    @ApiOperation(value = "get all secret santas in a given year, assuming that secretsantas have not been selected for that year", nickname = "getAllSecretSanta", notes = "", response = Teammates.class, tags={ "teammate", })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "teammates who were selected as secretsantas for a year", response = Teammates.class),
         @ApiResponse(code = 200, message = "unexpected error") })
@@ -41,7 +41,7 @@ public interface SecretsantaApi {
         value = "/secretsanta/getAllSecretSanta/{year}",
         produces = { "application/json" }
     )
-    ResponseEntity<Teammates> secretsantaGetAllSecretSantaYearGet(@ApiParam(value = "the year of everyone's secret santa", required = true) @PathVariable("year") Integer year);
+    ResponseEntity<Teammates> getAllSecretSanta(@ApiParam(value = "the year of everyone's secret santa", required = true) @PathVariable("year") Integer year);
 
 
     /**
@@ -50,7 +50,7 @@ public interface SecretsantaApi {
      * @return teammates who were selected as secretsantas for a year (status code 200)
      *         or unexpected error (status code 200)
      */
-    @ApiOperation(value = "Create new teammate and persist data to secretsanta table in postgres", nickname = "secretsantaRegisterTeammatePost", notes = "", response = Teammates.class, tags={  })
+    @ApiOperation(value = "Create new teammate and persist data to secretsanta table in postgres", nickname = "registerTeammate", notes = "", response = Teammates.class, tags={  })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "teammates who were selected as secretsantas for a year", response = Teammates.class),
         @ApiResponse(code = 200, message = "unexpected error") })
@@ -59,6 +59,6 @@ public interface SecretsantaApi {
         value = "/secretsanta/registerTeammate",
         produces = { "application/json" }
     )
-    ResponseEntity<Teammates> secretsantaRegisterTeammatePost();
+    ResponseEntity<Teammates> registerTeammate();
 
 }

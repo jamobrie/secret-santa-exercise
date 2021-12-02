@@ -11,7 +11,7 @@ import javax.validation.constraints.*;
 /**
  * Teammates
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2021-12-02T22:37:27.421Z[Europe/London]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2021-12-02T22:53:45.957Z[Europe/London]")
 public class Teammates extends ArrayList<Teammate>  {
 
   @Override
