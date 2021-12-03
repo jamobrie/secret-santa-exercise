@@ -1,2 +1,13 @@
 server:
   port: 8082
+
+spring:
+  datasource:
+    jpa:
+      database: POSTGRESQL
+    show-sql: true
+    platform: postgres
+    url: jdbc:postgresql://localhost:5432/alyien
+    username: postgres
+    password: Helmet321!
+    driverClassName: org.postgresql.Driver

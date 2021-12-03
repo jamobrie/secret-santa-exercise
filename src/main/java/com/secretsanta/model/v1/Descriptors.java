@@ -1,7 +1,6 @@
 package com.secretsanta.model.v1;
 
 import java.util.Objects;
-import com.secretsanta.model.v1.Teammate;
 import java.util.ArrayList;
 import java.util.List;
 import org.openapitools.jackson.nullable.JsonNullable;
@@ -9,10 +8,10 @@ import javax.validation.Valid;
 import javax.validation.constraints.*;
 
 /**
- * Teammates
+ * Descriptors
  */
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2021-12-03T00:12:26.438Z[Europe/London]")
-public class Teammates extends ArrayList<Teammate>  {
+public class Descriptors extends ArrayList<Object>  {
 
   @Override
   public boolean equals(Object o) {
@@ -33,7 +32,7 @@ public class Teammates extends ArrayList<Teammate>  {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Teammates {\n");
+    sb.append("class Descriptors {\n");
     sb.append("    ").append(toIndentedString(super.toString())).append("\n");
     sb.append("}");
     return sb.toString();

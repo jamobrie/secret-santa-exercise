@@ -7,6 +7,5 @@ public interface SecretSantaService {
 
     Teammates getAllSecretSantasInGivenYear(Integer year);
 
-
     Teammate createNewTeammate(Teammate teammate);
 }

@@ -12,7 +12,7 @@ import javax.validation.constraints.*;
 /**
  * Teammate
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2021-12-02T23:23:27.237Z[Europe/London]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2021-12-03T00:12:26.438Z[Europe/London]")
 public class Teammate   {
   @JsonProperty("id")
   private Integer id;

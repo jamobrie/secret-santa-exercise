@@ -5,6 +5,7 @@
  */
 package com.secretsanta.api.v1;
 
+import com.secretsanta.model.v1.Descriptors;
 import com.secretsanta.model.v1.Teammate;
 import com.secretsanta.model.v1.Teammates;
 import io.swagger.annotations.*;
@@ -21,7 +22,7 @@ import javax.validation.constraints.*;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2021-12-02T23:23:27.237Z[Europe/London]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2021-12-03T00:12:26.438Z[Europe/London]")
 @Validated
 @Api(value = "secretsanta", description = "the secretsanta API")
 public interface SecretsantaApi {
@@ -31,12 +32,18 @@ public interface SecretsantaApi {
      *
      * @param year the year of everyone&#39;s secret santa (required)
      * @return teammates who were selected as secretsantas for a year (status code 200)
+     *         or Invalid Request, Check the Request For Bad Data (status code 400)
+     *         or The request failed the authentication stage (status code 401)
+     *         or Internal Server Error (status code 500)
      *         or unexpected error (status code 200)
      */
     @ApiOperation(value = "get all secret santas in a given year, assuming that secretsantas have not been selected for that year", nickname = "getAllSecretSanta", notes = "", response = Teammates.class, tags={ "teammate", })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "teammates who were selected as secretsantas for a year", response = Teammates.class),
-        @ApiResponse(code = 200, message = "unexpected error") })
+        @ApiResponse(code = 400, message = "Invalid Request, Check the Request For Bad Data", response = Descriptors.class),
+        @ApiResponse(code = 401, message = "The request failed the authentication stage", response = Descriptors.class),
+        @ApiResponse(code = 500, message = "Internal Server Error", response = Descriptors.class),
+        @ApiResponse(code = 200, message = "unexpected error", response = Descriptors.class) })
     @RequestMapping(
         method = RequestMethod.GET,
         value = "/secretsanta/getAllSecretSanta/{year}",
@@ -50,12 +57,18 @@ public interface SecretsantaApi {
      *
      * @param teammate information of the teammate to create (required)
      * @return teammates who were selected as secretsantas for a year (status code 200)
+     *         or Invalid Request, Check the Request For Bad Data (status code 400)
+     *         or The request failed the authentication stage (status code 401)
+     *         or Internal Server Error (status code 500)
      *         or unexpected error (status code 200)
      */
     @ApiOperation(value = "Create new teammate and persist data to secretsanta table in postgres", nickname = "registerTeammate", notes = "", response = Teammate.class, tags={  })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "teammates who were selected as secretsantas for a year", response = Teammate.class),
-        @ApiResponse(code = 200, message = "unexpected error") })
+        @ApiResponse(code = 400, message = "Invalid Request, Check the Request For Bad Data", response = Descriptors.class),
+        @ApiResponse(code = 401, message = "The request failed the authentication stage", response = Descriptors.class),
+        @ApiResponse(code = 500, message = "Internal Server Error", response = Descriptors.class),
+        @ApiResponse(code = 200, message = "unexpected error", response = Descriptors.class) })
     @RequestMapping(
         method = RequestMethod.POST,
         value = "/secretsanta/registerTeammate",
