@@ -1,14 +1,18 @@
 package com.secretsanta.service;
 
+import com.secretsanta.conversion.ConversionHelper;
 import com.secretsanta.entity.Teammate;
 import com.secretsanta.model.v1.Teammates;
 import com.secretsanta.repo.SecretSantaRepository;
+import com.secretsanta.validation.TeammateValidator;
 import lombok.AllArgsConstructor;
-import org.dozer.Mapper;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Random;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 @Service
@@ -17,56 +21,96 @@ public class SecretSantaServiceImpl implements SecretSantaService {
 
     private final SecretSantaRepository secretSantaRepository;
 
-    private final Mapper mapper;
+    private final TeammateValidator teammateValidator;
+
+    private final ConversionHelper conversionHelper;
 
     @Override
-    public Teammates getAllSecretSantasInGivenYear(Integer year) {
+    public Teammates getAllSecretSantaInGivenYear(Integer year) {
 
-        List<Teammate> allTeammateEntity = secretSantaRepository.findAll(year);
-        List<com.secretsanta.model.v1.Teammate> allTeammateModel = convertToModel(allTeammateEntity);
+        List<Teammate> allTeammateEntity = secretSantaRepository.findTeammatesByYear(year);
 
-        assignSecretSanta(allTeammateModel);
+        List<com.secretsanta.model.v1.Teammate> allTeammateModel = conversionHelper.convertToModel(allTeammateEntity);
 
-        //TODO - Persist to DB
-//      secretSantaRepository.save();
+        Teammates teammatesModel = assignSecretSanta(allTeammateModel, year);
 
-        return null;
+        teammatesModel.forEach(teammate -> secretSantaRepository.save(conversionHelper.convertToEntity(teammate)));
+
+        return teammatesModel;
     }
 
-    private List<com.secretsanta.model.v1.Teammate> convertToModel(List<Teammate> allTeammateEntity) {
-        List<com.secretsanta.model.v1.Teammate> allTeammateModel = new ArrayList<>();
+    public Teammates assignSecretSanta(List<com.secretsanta.model.v1.Teammate> allTeammateModel, Integer year) {
+        teammateValidator.validateSecretSanta(allTeammateModel, year);
 
-        allTeammateEntity.forEach(teammateEntity ->
-                allTeammateModel.add(mapper.map(teammateEntity, com.secretsanta.model.v1.Teammate.class))
-        );
+        List<com.secretsanta.model.v1.Teammate> secretSantaList = new ArrayList<>();
 
-        return allTeammateModel;
+        Collections.shuffle(allTeammateModel, new Random());
+
+        //TODO Investigate thread safety
+        AtomicInteger i = new AtomicInteger();
+        while (i.get() < allTeammateModel.size()) {
+            //Shift to new method
+            com.secretsanta.model.v1.Teammate teammate = allTeammateModel.get(i.get());
+
+            if (i.get() + 1 == allTeammateModel.size()) {
+                teammate.setSecretSanta(allTeammateModel.get(0).getFirstName() + " " + allTeammateModel.get(0).getSecondName());
+            } else {
+                teammate.setSecretSanta(allTeammateModel.get(i.get() + 1).getFirstName() + " " + allTeammateModel.get(i.get() + 1).getSecondName());
+            }
+
+            secretSantaList.add(teammate);
+
+            i.getAndIncrement();
+
+            allTeammateModel.stream()
+                    .filter(this::isTeammateTheirOwnSecretSanta)
+                    .findAny()
+                    .ifPresent(resetList -> {
+                        i.set(0);
+                        Collections.shuffle(allTeammateModel, new Random());
+                    });
+
+            //TODO validate that teammate can only be secret santa every third year
+            //To finish this part out
+//            allTeammateModel.stream()
+//                    .map(teammate -> teammate.get)
+//                    .filter(this::haveTeammatesBeenSecretSantaWithinThreeYears)
+//                    .findAny()
+//                    .ifPresent(resetList -> {
+//                        i.set(0);
+//                        Collections.shuffle(allTeammateModel, new Random());
+//                    });
+        }
+
+        System.out.println(secretSantaList.stream());
+
+
+        return allTeammateModel.stream().collect(Collectors.toCollection(Teammates::new));
+
     }
+
+    private boolean haveTeammatesBeenSecretSantaWithinThreeYears(com.secretsanta.model.v1.Teammate teammate) {
+        return true;
+    }
+
+    private boolean isTeammateTheirOwnSecretSanta(com.secretsanta.model.v1.Teammate teammate) {
+        String fullTeammateName = teammate.getFirstName() + teammate.getSecondName();
+        String secretSanta = teammate.getSecretSanta().trim();
+        return fullTeammateName.equals(secretSanta);
+    }
+
 
     @Override
-    public com.secretsanta.model.v1.Teammate createNewTeammate(com.secretsanta.model.v1.Teammate teammate) {
-        //TODO validate secretSanta is not allowed for creating new teammates
+    public com.secretsanta.model.v1.Teammate createNewTeammate(com.secretsanta.model.v1.Teammate teammateModel) {
+        teammateValidator.validateNewTeammate(teammateModel);
 
-        //TODO validate firstName, secondName and year are provided
-
-        //TODO persist to DB
-
-        return teammate;
+        return saveTeammate(teammateModel);
     }
 
-    public Teammates assignSecretSanta(List<com.secretsanta.model.v1.Teammate> allTeammateModel) {
-        //TODO validate that teammate is not their own secretSanta
-        //TODO validate that teammate can only be secret santa every 4th year
-        //TODO validate that secret santa cannot be done twice for a given year
+    private com.secretsanta.model.v1.Teammate saveTeammate(com.secretsanta.model.v1.Teammate teammateModel) {
+        Teammate teammateEntity = conversionHelper.convertToEntity(teammateModel);
 
-        allTeammateModel.forEach(teammate -> {
-            teammate.setSecretSanta("");
-        });
-
-        List<com.secretsanta.model.v1.Teammate> teammateList1 = new ArrayList<>(allTeammateModel);
-        Teammates teammates = teammateList1.stream().collect(Collectors.toCollection(Teammates::new));
-
-        return teammates;
+        return conversionHelper.convertToModel(secretSantaRepository.save(teammateEntity));
     }
 
 }

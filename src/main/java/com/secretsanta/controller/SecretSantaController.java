@@ -14,9 +14,11 @@ public class SecretSantaController implements SecretsantaApi {
 
     private final SecretSantaServiceImpl secretSantaServiceImpl;
 
+    //TODO Add authentication mechanism
+
     @Override
     public ResponseEntity<Teammates> getAllSecretSanta(Integer year) {
-        Teammates teammateList = secretSantaServiceImpl.getAllSecretSantasInGivenYear(year);
+        Teammates teammateList = secretSantaServiceImpl.getAllSecretSantaInGivenYear(year);
         return ResponseEntity.ok(teammateList);
     }
 

@@ -12,7 +12,7 @@ import javax.validation.constraints.*;
 /**
  * Teammate
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2021-12-03T00:12:26.438Z[Europe/London]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2021-12-03T16:42:53.786Z[Europe/London]")
 public class Teammate   {
   @JsonProperty("id")
   private Integer id;
@@ -58,7 +58,8 @@ public class Teammate   {
    * Get firstName
    * @return firstName
   */
-  @ApiModelProperty(example = "James", value = "")
+  @ApiModelProperty(example = "James", required = true, value = "")
+  @NotNull
 
 
   public String getFirstName() {
@@ -78,7 +79,8 @@ public class Teammate   {
    * Get secondName
    * @return secondName
   */
-  @ApiModelProperty(example = "O'Brien", value = "")
+  @ApiModelProperty(example = "O'Brien", required = true, value = "")
+  @NotNull
 
 
   public String getSecondName() {
@@ -118,7 +120,8 @@ public class Teammate   {
    * Get yearOfSecretSanta
    * @return yearOfSecretSanta
   */
-  @ApiModelProperty(example = "1", value = "")
+  @ApiModelProperty(example = "1", required = true, value = "")
+  @NotNull
 
 
   public Integer getYearOfSecretSanta() {

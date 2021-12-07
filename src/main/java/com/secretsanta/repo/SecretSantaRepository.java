@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface SecretSantaRepository extends JpaRepository<Teammate, Integer> {
-    List<Teammate> findAll(Integer year);
+    List<Teammate> findTeammatesByYear(Integer year);
 }

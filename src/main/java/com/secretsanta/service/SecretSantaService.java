@@ -5,7 +5,7 @@ import com.secretsanta.model.v1.Teammates;
 
 public interface SecretSantaService {
 
-    Teammates getAllSecretSantasInGivenYear(Integer year);
+    Teammates getAllSecretSantaInGivenYear(Integer year);
 
     Teammate createNewTeammate(Teammate teammate);
 }
