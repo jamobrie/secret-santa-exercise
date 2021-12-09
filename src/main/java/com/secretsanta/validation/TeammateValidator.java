@@ -1,12 +1,14 @@
 package com.secretsanta.validation;
 
 import com.secretsanta.exception.InvalidTeammateException;
+import com.secretsanta.exception.SecretSantaExceptionHandler;
 import com.secretsanta.exception.SecretSantaWasAlreadyOrganisedForYearException;
 import com.secretsanta.exception.TeammateAlreadyExistsForThatYearException;
 import com.secretsanta.model.v1.Teammate;
 import com.secretsanta.repo.SecretSantaRepository;
 import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -17,7 +19,11 @@ public class TeammateValidator {
 
     private final SecretSantaRepository secretSantaRepository;
 
+    private static final ch.qos.logback.classic.Logger LOGGER =
+            (ch.qos.logback.classic.Logger) LoggerFactory.getLogger(SecretSantaExceptionHandler.class);
+
     public void validateNewTeammate(Teammate teammate) {
+        LOGGER.info("Inside TeammateValidator.validateNewTeammate() ... preparing to validate new teammate");
         if (teammate == null) {
             throw new InvalidTeammateException("New Teammate Cannot be Null");
         }
@@ -68,7 +74,7 @@ public class TeammateValidator {
                 teammateEntity.getYear().equals(teammateModel.getYearOfSecretSanta());
     }
 
-    public void validateSecretSanta(List<Teammate> allTeammateModel, Integer year) {
+    public void validateSecretSantaForGivenYear(List<Teammate> allTeammateModel, Integer year) {
         allTeammateModel.stream()
                 .filter(teammate -> findPreviousSecretSantaForGivenYear(teammate, year))
                 .findAny()
