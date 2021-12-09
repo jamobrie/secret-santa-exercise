@@ -1,0 +1,59 @@
+{
+	"info": {
+		"_postman_id": "93c5dc6f-f1b4-479d-81ca-58bf56a9106b",
+		"name": "Aylien",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://localhost:8082/secretsanta/registerTeammate",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstName\": \"Colin\",\r\n    \"secondName\": \"Doe\",\r\n    \"yearOfSecretSanta\": \"2022\",\r\n    \"secretSanta\": \"\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8082/secretsanta/registerTeammate",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"secretsanta",
+						"registerTeammate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8082/secretsanta/getAllSecretSanta/2021",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8082/secretsanta/getAllSecretSanta/2021",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"secretsanta",
+						"getAllSecretSanta",
+						"2021"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
