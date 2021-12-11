@@ -10,6 +10,27 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\src\main\java\BasicExercises2.java">
+          <value>
+            <Attribute>
+              <option name="separator" value=";" />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\src\main\java\shapes\Circle.java">
+          <value>
+            <Attribute>
+              <option name="separator" value=";" />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\src\main\java\shapes\Rectangle.java">
+          <value>
+            <Attribute>
+              <option name="separator" value=";" />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\src\main\java\shapes\shape.java">
           <value>
             <Attribute>
