@@ -1,6 +1,5 @@
 import shapes.Circle;
 
-import java.awt.*;
 import java.util.Scanner;
 
 public class BasicExercises {
