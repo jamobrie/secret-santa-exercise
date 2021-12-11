@@ -1,3 +1,4 @@
+import com.sun.jdi.connect.spi.Connection;
 import shapes.Circle;
 
 import java.util.Scanner;
@@ -15,12 +16,19 @@ public class BasicExercises {
         //2. Sum of numbers
         int sum = four + twelve;
         System.out.println("The sum is " + sum);
-        assert sum == 16;
+        assert sum == 16: "Sum was not 16 "; // java.lang.AssertionError ---> Exception ----> AssertionError extends throwable
+
+        //Best Practices:
+        //The most important thing to remember about assertions is that they can be disabled, so never assume they'll be executed.
+//Always check for null values and empty Optionals where appropriate
+//Avoid using assertions to check inputs into a public method and instead use an unchecked exception such as IllegalArgumentException or NullPointerException
+//Don't call methods in assertion conditions and instead assign the result of the method to a local variable and use that variable with assert
+//Assertions are great for places in the code that will never be executed, such as the default case of a switch statement or after a loop that never finishes
 
         //3. Division of numbers
         int division = twelve / four;
         System.out.println("The division is: " + division);
-        assert division == 3;
+        assert division == 3: "Division was not 3";
 
         //4. To enable assertions
         //In the VM options when running just add ---> -ea
@@ -90,13 +98,15 @@ public class BasicExercises {
         int average = total / 3;
 
         System.out.println("The average is: " + average);
+        in.close();
     }
 
 
     private static void scannerLoop() {
         Scanner in = new Scanner(System.in);
 
-        System.out.println("Enter number to get it's multiplication of 10 table");
+        System.out.println("Enter number to get it's multiplication of 10 in a table");
+
         int numberToMultiply = in.nextInt();
 
         for (int i = 1; i <= 10; i++) {
@@ -120,5 +130,10 @@ public class BasicExercises {
         in.close();
     }
 
+    //Handy approach for verifying if our DB connection is up and running
+    public void setup() {
+        //Connection conn = getConnection();
+        //assert conn != null;
+    }
 
 }
