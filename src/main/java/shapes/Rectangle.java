@@ -43,6 +43,7 @@ public class Rectangle implements Shape {
         return Double.compare(rectangle.length, length) == 0 && Double.compare(rectangle.width, width) == 0;
     }
 
+    //TODO revisit the hashcode
     @Override
     public int hashCode() {
         return Objects.hash(length, width);
