@@ -12,7 +12,7 @@ import javax.validation.constraints.*;
 /**
  * Descriptor
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2021-12-03T16:42:53.786Z[Europe/London]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-01-26T17:01:45.238Z[Europe/London]")
 public class Descriptor   {
   @JsonProperty("code")
   private String code;
